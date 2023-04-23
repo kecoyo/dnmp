@@ -137,17 +137,17 @@ services:
   #   networks:
   #     - default
 
-  turtle-butler:
+  turtle-api:
     build:
-      context: ./services/turtle-butler
+      context: ./services/turtle-api
       args:
         NODE_VERSION: ${NODE_VERSION}
         NODE_REGISTRY: ${NODE_REGISTRY}
-    container_name: turtle-butler
+    container_name: turtle-api
     ports:
-      - "${TURTLE_BUTLER_PORT}:8360"
+      - "${TURTLE_API_PORT}:8360"
     volumes:
-      - ${TURTLE_BUTLER_DIR}:/www/:rw
+      - ${TURTLE_API_DIR}:/www/:rw
     depends_on:
       - mysql
     environment:
