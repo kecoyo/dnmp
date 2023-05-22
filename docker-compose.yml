@@ -45,6 +45,8 @@ services:
     restart: always
     cap_add:
       - SYS_PTRACE
+    extra_hosts:
+      - "host.docker.internal:${HOST_GATEWAY}"
     networks:
       - default
 
