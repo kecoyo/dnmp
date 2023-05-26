@@ -194,9 +194,10 @@ fi
 
 if [[ -z "${EXTENSIONS##*,gd,*}" ]]; then
     echo "---------- Install gd ----------"
-    apk add --no-cache freetype-dev libjpeg-turbo-dev libpng-dev \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install ${MC} gd
+    apk add --no-cache freetype-dev libjpeg-turbo-dev libpng-dev
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+    docker-php-ext-install ${MC} gd
+    # docker-php-ext-enable gd
 fi
 
 if [[ -z "${EXTENSIONS##*,intl,*}" ]]; then
@@ -298,9 +299,11 @@ fi
 if [[ -z "${EXTENSIONS##*,imagick,*}" ]]; then
     echo "---------- Install imagick ----------"
 	apk add --no-cache file-dev
-	apk add --no-cache imagemagick-dev
+  apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS imagemagick-dev libtool \
     printf "\n" | pecl install imagick-3.4.4
     docker-php-ext-enable imagick
+    apk add --no-cache --virtual .imagick-runtime-deps imagemagick
+    apk del .phpize-deps
 fi
 
 if [[ -z "${EXTENSIONS##*,rar,*}" ]]; then
@@ -502,10 +505,4 @@ if [[ -z "${EXTENSIONS##*,zip,*}" ]]; then
     fi
 
 	docker-php-ext-install ${MC} zip
-fi
-
-if [[ -z "${EXTENSIONS##*,gd,*}" ]]; then
-    echo "---------- Install gd ----------"
-    docker-php-ext-install gd \
-    && docker-php-ext-enable gd
 fi
