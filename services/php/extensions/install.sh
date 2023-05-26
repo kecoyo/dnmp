@@ -503,3 +503,9 @@ if [[ -z "${EXTENSIONS##*,zip,*}" ]]; then
 
 	docker-php-ext-install ${MC} zip
 fi
+
+if [[ -z "${EXTENSIONS##*,gd,*}" ]]; then
+    echo "---------- Install gd ----------"
+    docker-php-ext-install gd \
+    && docker-php-ext-enable gd
+fi

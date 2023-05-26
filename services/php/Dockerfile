@@ -22,7 +22,6 @@ RUN if [ "${PHP_EXTENSIONS}" != "" ]; then \
 
 RUN chmod +x install.sh && sh install.sh && rm -rf /tmp/extensions
 
-
 RUN apk --no-cache add tzdata \
     && cp "/usr/share/zoneinfo/$TZ" /etc/localtime \
     && echo "$TZ" > /etc/timezone
@@ -31,6 +30,5 @@ RUN apk --no-cache add tzdata \
 # Fix: https://github.com/docker-library/php/issues/240
 RUN apk add gnu-libiconv --no-cache --repository http://${CONTAINER_PACKAGE_URL}/alpine/edge/community/ --allow-untrusted
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
-
 
 WORKDIR /www
