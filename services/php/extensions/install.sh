@@ -442,12 +442,12 @@ fi
 
 if [[ -z "${EXTENSIONS##*,xdebug,*}" ]]; then
     echo "---------- Install xdebug ----------"
-    isPhpVersionGreaterOrEqual 7 0
+    isPhpVersionGreaterOrEqual 8 0
 
     if [[ "$?" = "1" ]]; then
-        installExtensionFromTgz xdebug-2.6.1
+        installExtensionFromTgz xdebug-3.2.1
     else
-        installExtensionFromTgz xdebug-2.5.5
+        installExtensionFromTgz xdebug-3.1.6
     fi
 fi
 
