@@ -149,12 +149,12 @@ services:
     environment:
       - NAMESRV_ADDR=rmqnamesrv:${ROCKETMQ_HOST_PORT}
     volumes:
-      - ${ROCKETMQ_CONF_FILE}:/home/rocketmq/rocketmq-4.9.6/conf/broker.conf
+      - ${ROCKETMQ_CONF_FILE}:/home/rocketmq/conf/broker.conf
     depends_on:
       - rmqnamesrv
     networks:
       - default
-    command: sh mqbroker -c /home/rocketmq/rocketmq-4.9.6/conf/broker.conf
+    command: sh mqbroker -c /home/rocketmq/conf/broker.conf
 
 networks:
   default:
