@@ -11,12 +11,16 @@ services:
     ports:
       - "${NGINX_HTTP_HOST_PORT}:80"
       - "${NGINX_HTTPS_HOST_PORT}:443"
+      - "${THINK_ADMIN_PORT}:8090"
+      - "${TURTLE_ADMIN_PORT}:9090"
     volumes:
       - ${SOURCE_DIR}:/www/:rw
       - ${NGINX_SSL_CERTIFICATE_DIR}:/ssl:rw
       - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
+      - ${THINK_ADMIN_DIR}:/www/think-admin:rw
+      - ${TURTLE_ADMIN_DIR}:/www/turtle-admin:rw
     environment:
       TZ: "$TZ"
     restart: always
@@ -39,9 +43,13 @@ services:
       - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
       - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
       - ${PHP_LOG_DIR}:/var/log/php
+      - ${THINK_ADMIN_DIR}:/www/think-admin:rw
+      - ${TURTLE_ADMIN_DIR}:/www/turtle-admin:rw
     restart: always
     cap_add:
       - SYS_PTRACE
+    extra_hosts:
+      - "host.docker.internal:${HOST_GATEWAY}"
     networks:
       - default
 
@@ -179,5 +187,20 @@ services:
     depends_on:
       - mysql
 
+  alist:
+    image: xhofe/alist:latest
+    container_name: alist
+    volumes:
+      - /etc/alist:/opt/alist/data
+    ports:
+      - 5244:5244
+    environment:
+      - TZ=$TZ
+      - PUID=0
+      - PGID=0
+      - UMASK=022
+    restart: unless-stopped
+    networks:
+      - default
 networks:
   default:
