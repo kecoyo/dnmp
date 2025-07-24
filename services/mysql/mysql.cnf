@@ -4,29 +4,29 @@ default-character-set   = utf8mb4
 
 
 [mysqld]
-port		                = 3306
-default_storage_engine  = InnoDB
-performance_schema_max_table_instances = 400
-table_definition_cache  = 400
-skip-external-locking
-key_buffer_size         = 256M
-max_allowed_packet      = 100G
-table_open_cache        = 1024
-sort_buffer_size        = 4M
-net_buffer_length       = 4K
-read_buffer_size        = 4M
-read_rnd_buffer_size    = 256K
-myisam_sort_buffer_size = 64M
-thread_cache_size       = 128
-tmp_table_size          = 128M
-default_authentication_plugin = mysql_native_password
-lower_case_table_names  = 1
-sql-mode                =NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+user                    = mysql
+port                    = 3306
+sql_mode                = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
 
-[mysqldump]
-quick
-max_allowed_packet = 500M
+default-storage-engine  = InnoDB
+default-authentication-plugin   = mysql_native_password
+character-set-server    = utf8mb4
+collation-server        = utf8mb4_unicode_ci
+init_connect            = 'SET NAMES utf8mb4'
+
+disable-log-bin
+skip-character-set-client-handshake
+explicit_defaults_for_timestamp
+
+slow_query_log
+long_query_time         = 3
+slow-query-log-file     = /var/lib/mysql/mysql.slow.log
+log-error               = /var/lib/mysql/mysql.error.log
+
+default-time-zone       = '+8:00'
+
+max_allowed_packet      = 500M
+innodb_buffer_pool_size = 1G
 
 [mysql]
-no-auto-rehash
 default-character-set   = utf8mb4
