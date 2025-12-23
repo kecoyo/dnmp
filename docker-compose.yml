@@ -12,7 +12,6 @@ services:
       - "${NGINX_HTTP_HOST_PORT}:80"
       - "${NGINX_HTTPS_HOST_PORT}:443"
       - "${THINK_ADMIN_PORT}:8090"
-      - "${TURTLE_ADMIN_PORT}:9090"
       - "${WORDPRESS_PORT}:9080"
       - "${PIWIGO_PORT}:9097"
     volumes:
@@ -22,7 +21,6 @@ services:
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
       - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
       - ${THINK_ADMIN_DIR}:/www/ThinkAdmin:rw
-      - ${TURTLE_ADMIN_DIR}:/www/turtle-admin:rw
       - ${WORDPRESS_DIR}:/www/wordpress:rw
       - ${PIWIGO_DIR}:/www/piwigo:rw
     environment:
@@ -48,7 +46,6 @@ services:
       - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
       - ${PHP_LOG_DIR}:/var/log/php
       - ${THINK_ADMIN_DIR}:/www/ThinkAdmin:rw
-      - ${TURTLE_ADMIN_DIR}:/www/turtle-admin:rw
       - ${WORDPRESS_DIR}:/www/wordpress:rw
       - ${PIWIGO_DIR}:/www/piwigo:rw
     restart: always
